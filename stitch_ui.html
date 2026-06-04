@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>UrbanIQ | Intelligence Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #111415;
+            color: #e1e3e4;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .border-technical {
+            border: 1px solid #2C3038;
+        }
+        .bg-tactical {
+            background-color: #1A1C21;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #111415;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #323536;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e2e2e9",
+                        "surface-variant": "#323536",
+                        "primary-fixed-dim": "#c6c6cd",
+                        "surface": "#111415",
+                        "on-primary-fixed-variant": "#45474c",
+                        "surface-container-lowest": "#0c0f10",
+                        "tertiary-fixed-dim": "#bcc7dd",
+                        "on-secondary-container": "#b5b8c2",
+                        "surface-container": "#1d2021",
+                        "on-primary-fixed": "#1a1c20",
+                        "on-secondary-fixed-variant": "#43474f",
+                        "tertiary": "#bcc7dd",
+                        "on-background": "#e1e3e4",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#798499",
+                        "inverse-on-surface": "#2e3132",
+                        "on-secondary-fixed": "#181c23",
+                        "error": "#ffb4ab",
+                        "surface-container-low": "#191c1d",
+                        "on-primary-container": "#83848a",
+                        "outline": "#909095",
+                        "surface-tint": "#c6c6cd",
+                        "on-secondary": "#2c3038",
+                        "tertiary-container": "#111c2d",
+                        "secondary-fixed-dim": "#c3c6d1",
+                        "tertiary-fixed": "#d8e3fa",
+                        "on-tertiary-fixed": "#111c2c",
+                        "background": "#111415",
+                        "inverse-surface": "#e1e3e4",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#dfe2ed",
+                        "secondary": "#c3c6d1",
+                        "on-primary": "#2e3036",
+                        "primary": "#c6c6cd",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "primary-container": "#1a1c21",
+                        "outline-variant": "#46474b",
+                        "inverse-primary": "#5d5e64",
+                        "surface-container-high": "#282a2b",
+                        "surface-bright": "#373a3b",
+                        "surface-container-highest": "#323536",
+                        "on-surface": "#e1e3e4",
+                        "secondary-container": "#454952",
+                        "surface-dim": "#111415",
+                        "on-surface-variant": "#c6c6cb",
+                        "on-tertiary": "#263142"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["IBM Plex Serif"],
+                        "headline-sm": ["IBM Plex Serif"],
+                        "headline-md": ["IBM Plex Serif"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                        "label-caps": ["11px", {"lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="overflow-hidden">
+<!-- TopAppBar Navigation -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 h-16 bg-surface-container-highest border-b border-surface-variant">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-on-surface">UrbanIQ</span>
+<div class="flex items-center gap-2 px-3 py-1 bg-error-container text-on-error-container rounded">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-label-caps text-label-caps">CLASSIFIED</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-surface-container px-3 py-1.5 border-technical">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none outline-none text-data-mono font-data-mono text-on-surface w-48 placeholder:text-on-surface-variant" placeholder="QUERY INFRASTRUCTURE..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-variant transition-colors rounded"><span class="material-symbols-outlined text-on-surface">notifications</span></button>
+<button class="p-2 hover:bg-surface-variant transition-colors rounded"><span class="material-symbols-outlined text-on-surface">schedule</span></button>
+<button class="p-2 hover:bg-surface-variant transition-colors rounded"><span class="material-symbols-outlined text-on-surface">account_circle</span></button>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low border-r border-surface-variant pt-20 pb-8 flex flex-col z-40">
+<div class="px-6 mb-8">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Level 4 Intelligence</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Restricted Access</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<div class="flex items-center gap-3 px-3 py-3 bg-secondary-container text-on-secondary-container border-l-4 border-primary cursor-pointer transition-all">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Intelligence Overview</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<span class="material-symbols-outlined">settings_suggest</span>
+<span class="font-label-caps text-label-caps">Operations</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<span class="material-symbols-outlined">home_repair_service</span>
+<span class="font-label-caps text-label-caps">Asset Management</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">Archive</span>
+</div>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<div class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-caps text-label-caps">System Logs</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 text-on-surface-variant hover:bg-surface-container-high cursor-pointer transition-all">
+<span class="material-symbols-outlined">help_center</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 h-screen flex overflow-hidden">
+<!-- Left Column: Main Analysis -->
+<section class="flex-1 p-8 overflow-y-auto custom-scrollbar bg-surface-container-lowest">
+<div class="max-w-4xl space-y-8">
+<!-- Report Generator Panel -->
+<div class="bg-tactical border-technical p-6">
+<header class="flex items-center justify-between mb-6">
+<h3 class="font-label-caps text-label-caps text-primary">REPORT GENERATOR // SYSTEM.INFRA_CORE</h3>
+<span class="text-data-mono font-data-mono text-[10px] text-on-surface-variant">v2.4.0_STABLE</span>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Photo Upload Zone -->
+<div class="border-2 border-dashed border-surface-variant flex flex-col items-center justify-center p-8 bg-surface-dim hover:bg-surface-container transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-primary mb-2">add_a_photo</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">UPLOAD SOURCE IMAGES (1-5)</span>
+<span class="text-data-mono font-data-mono text-[10px] text-on-tertiary-container mt-1">.RAW .TIFF .JPG SUPPORTED</span>
+</div>
+<!-- Context Inputs -->
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">LOCATION CONTEXT</label>
+<input class="w-full bg-surface-dim border-b border-surface-variant focus:border-primary outline-none py-2 font-data-mono text-data-mono text-on-surface" placeholder="ENTER GPS OR NEIGHBORHOOD NAME..." type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">CITY SELECTION</label>
+<select class="w-full bg-surface-dim border-b border-surface-variant focus:border-primary outline-none py-2 font-data-mono text-data-mono text-on-surface cursor-pointer">
+<option>MUMBAI_REGIONAL</option>
+<option>DELHI_METRO</option>
+<option>BANGALORE_CENTRAL</option>
+<option>HYDERABAD_TECH</option>
+</select>
+</div>
+<button class="w-full py-4 bg-primary text-on-primary font-label-caps text-label-caps tracking-widest hover:opacity-90 active:scale-[0.98] transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">analytics</span>
+                                ANALYSE INFRASTRUCTURE
+                            </button>
+</div>
+</div>
+</div>
+<!-- Official Report Card -->
+<div class="bg-tactical border-technical overflow-hidden">
+<div class="h-2 bg-error"></div>
+<div class="p-8">
+<div class="flex justify-between border-b border-surface-variant pb-4 mb-6">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface uppercase font-bold">Official Intelligence Report</h2>
+<p class="font-data-mono text-data-mono text-on-surface-variant">REF_ID: UIQ-992-ALPHA-X</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant">DATE GENERATED</p>
+<p class="font-data-mono text-data-mono">2023-11-24 14:22:10</p>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8 mb-8">
+<div class="col-span-4 space-y-4">
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block">SEVERITY INDEX</label>
+<div class="flex items-center gap-1 mt-2">
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-error"></div>
+<div class="w-full h-2 bg-surface-variant"></div>
+<div class="w-full h-2 bg-surface-variant"></div>
+<div class="w-full h-2 bg-surface-variant"></div>
+<span class="font-data-mono text-data-mono ml-2 text-error">07/10</span>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block">LOCATION TYPE</label>
+<span class="font-data-mono text-data-mono text-on-surface">ARTERIAL_HIGHWAY</span>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block">CONTRACTOR REQ.</label>
+<span class="font-data-mono text-data-mono text-on-surface">LEVEL_01_HEAVY_CIVIL</span>
+</div>
+</div>
+<div class="col-span-8 space-y-6">
+<div class="bg-surface-dim border-l-4 border-error p-4">
+<p class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">
+                                        CRITICAL SYSTEM FAILURE DETECTED: IMMEDIATE INTERVENTION REQUIRED
+                                    </p>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block border-b border-surface-variant pb-1 mb-2">ROOT CAUSE ANALYSIS</label>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Erosive sub-base degradation following monsoon runoff surplus. Material fatigue in top-layer bitumen.</p>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block border-b border-surface-variant pb-1 mb-2">PROJECT PHASES</label>
+<p class="text-body-sm font-body-sm text-on-surface-variant">01: Extraction | 02: Drainage Re-align | 03: Compaction | 04: Resurfacing.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-8 py-6 border-t border-surface-variant">
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block mb-2">CORRECTIVE ACTIONS</label>
+<ul class="font-data-mono text-data-mono text-on-surface space-y-1">
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-error"></span>SITE_ISOLATION_ZONE</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-error"></span>SUB_SURFACE_STABILIZATION</li>
+<li class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-error"></span>TRAFFIC_REROUTING_INIT</li>
+</ul>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-tertiary-container block mb-2">GOVERNMENT SCHEMES</label>
+<p class="text-body-sm font-body-sm text-on-surface mb-2">Smart City Mission - Urban Infrastructure Allocation Fund (UIAF-2023)</p>
+<button class="flex items-center gap-2 px-4 py-2 border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                    DOWNLOAD PDF
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Community Pins -->
+<section class="w-[450px] border-l border-surface-variant bg-surface p-6 flex flex-col">
+<header class="mb-6">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">REGIONAL ANALYTICS // INDIA</h3>
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Community Pins Map</h4>
+</header>
+<div class="flex-1 relative bg-surface-dim border-technical overflow-hidden flex items-center justify-center">
+<!-- Map Background -->
+<div class="absolute inset-0 opacity-40 mix-blend-luminosity grayscale">
+<img alt="Satellite view of the Indian subcontinent" class="w-full h-full object-cover" data-alt="A dark, high-contrast satellite view of the Indian subcontinent showing varied topography and urban clusters at night. The image has a technical, monochromatic blueprint aesthetic with deep blacks and cool slate grays. Minimalist lighting emphasizes the coastal outlines and city density patterns. The overall mood is cold, analytical, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5GgQcGe9l6pj1X_B1YEK4fCcmgDq9V66uaJV1srJjvKlFfnIqRfX-PotJKPZ_j6iFl_UwrTE2iNB5ngt2kHXJ9VUL_Om3z5NFpjdabOr2mN8SdyAGPeGGeybTfOFW-sgpH7bFdeGhys6TtdIOHWR8iwLoXVo_aLVok8YJaY3gxverI2-u6n0v3rnHgT-pDaZMgOE7fhzqjWUrh1Bxxt-lLO9OpCr6DKQzD1FI5guMvJV14fV71U0RO5PWQ6FYk27spY6FrI_qcJ0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent"></div>
+</div>
+<!-- Technical Grid Overlay -->
+<div class="absolute inset-0 pointer-events-none opacity-10" style="background-image: radial-gradient(#909095 1px, transparent 0); background-size: 20px 20px;"></div>
+<!-- Interactive Pins -->
+<!-- Delhi -->
+<div class="absolute top-[25%] left-[45%] cursor-pointer group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">location_on</span>
+<div class="absolute top-0 left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-tactical border-technical p-2 whitespace-nowrap z-50">
+<p class="font-label-caps text-label-caps text-on-surface">DELHI_NORTH</p>
+</div>
+</div>
+<!-- Bangalore -->
+<div class="absolute bottom-[30%] left-[55%] cursor-pointer group">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">location_on</span>
+<div class="absolute top-0 left-full ml-2 opacity-0 group-hover:opacity-100 transition-opacity bg-tactical border-technical p-2 whitespace-nowrap z-50">
+<p class="font-label-caps text-label-caps text-on-surface">BANGALORE_HUB</p>
+</div>
+</div>
+<!-- Active Pin: Mumbai -->
+<div class="absolute top-[55%] left-[35%]">
+<div class="relative">
+<div class="absolute inset-0 w-8 h-8 -left-2 -top-2 bg-error rounded-full animate-ping opacity-25"></div>
+<span class="material-symbols-outlined text-error text-3xl relative z-10" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<!-- Active Popup -->
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 w-56 bg-tactical border-technical p-3 shadow-2xl z-20">
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-error"></span>
+<span class="font-label-caps text-label-caps text-on-surface">MUMBAI_WEST</span>
+</div>
+<p class="text-data-mono font-data-mono text-[12px] text-on-surface leading-tight">
+                                Major Pothole Cluster - High Severity
+                            </p>
+<p class="text-data-mono font-data-mono text-[10px] text-error mt-1">REPORTED: 12m ago</p>
+<div class="absolute top-full left-1/2 -translate-x-1/2 w-3 h-3 bg-tactical border-r border-b border-surface-variant rotate-45 -mt-1.5"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 space-y-3">
+<div class="flex justify-between items-center border-b border-surface-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-tertiary-container">LIVE INCIDENTS</span>
+<span class="font-data-mono text-data-mono text-primary">12 ACTIVE</span>
+</div>
+<div class="max-h-48 overflow-y-auto custom-scrollbar space-y-2">
+<div class="bg-surface-container p-2 border-l-2 border-error flex justify-between items-center">
+<div>
+<p class="font-label-caps text-label-caps">MUMBAI_P-02</p>
+<p class="text-data-mono font-data-mono text-[10px] text-on-surface-variant">ROAD_SUBSIDENCE</p>
+</div>
+<span class="material-symbols-outlined text-error text-sm">priority_high</span>
+</div>
+<div class="bg-surface-container p-2 border-l-2 border-primary flex justify-between items-center">
+<div>
+<p class="font-label-caps text-label-caps">DELHI_T-14</p>
+<p class="text-data-mono font-data-mono text-[10px] text-on-surface-variant">STREETLIGHT_OUTAGE</p>
+</div>
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<script>
+        // Simple logic for simulation
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('UrbanIQ Systems Operational...');
+            
+            // Random ping effect simulation
+            setInterval(() => {
+                const mapPins = document.querySelectorAll('.animate-ping');
+                mapPins.forEach(ping => {
+                    ping.style.display = 'none';
+                    setTimeout(() => ping.style.display = 'block', 50);
+                });
+            }, 3000);
+        });
+    </script>
+</body></html>
